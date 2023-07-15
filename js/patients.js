@@ -1411,7 +1411,6 @@ function renderPatiens(data) {
                                 }
                             }
                         }).then((res) => {
-                            console.log(res)
                             if (res.data.status) {
                                 toastr.success(`Bemor O'chirildi`);
                                 main_page_header.innerHTML = `Bemorlar`;
