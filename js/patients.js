@@ -1118,7 +1118,6 @@ function renderPatiens(data) {
 
     sessionStorage.setItem('steep', `pations`);
 
-    console.log(data)
 
     main_page_header.innerHTML = `Bemorlar`;
     title.innerHTML = `Bemorlar`;
