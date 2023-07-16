@@ -697,7 +697,7 @@ async function renderDiagnose(patient) {
                     // Create a temporary anchor element
                     const link = document.createElement('a');
                     link.href = URL.createObjectURL(blob);
-                    link.download = 'Nodir aka.png';
+                    link.download = `${patient.father_name} ${patient.first_name} ${patient.name}`;
 
                     // Programmatically click the anchor element to trigger the download
                     link.click();
@@ -733,7 +733,7 @@ async function renderDiagnose(patient) {
             // html2pdf(elementHTML);
 
 
-            var htmlContent = document.getElementById('full_body');
+            //var htmlContent = document.getElementById('full_body');
 
 
 
