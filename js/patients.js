@@ -642,7 +642,7 @@ async function renderDiagnose(patient) {
           
         </div>
       </div>
-
+      <hr>
       <div class="med-bottom">
         <div class="med-bottom-top">
           <div class="med-doctor">
