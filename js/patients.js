@@ -691,22 +691,22 @@ async function renderDiagnose(patient) {
 
         save_btn.onclick = () => {
             window.jsPDF = window.jspdf.jsPDF;
-            // html2canvas(document.getElementById('full_body')).then(function (canvas) {
-            //     // Convert the canvas to a blob
-            //     canvas.toBlob(function (blob) {
-            //         // Create a temporary anchor element
-            //         const link = document.createElement('a');
-            //         link.href = URL.createObjectURL(blob);
-            //         link.download = 'Nodir aka.png';
+            html2canvas(document.getElementById('full_body')).then(function (canvas) {
+                // Convert the canvas to a blob
+                canvas.toBlob(function (blob) {
+                    // Create a temporary anchor element
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(blob);
+                    link.download = 'Nodir aka.png';
 
-            //         // Programmatically click the anchor element to trigger the download
-            //         link.click();
+                    // Programmatically click the anchor element to trigger the download
+                    link.click();
 
-            //         // Clean up the temporary anchor element
-            //         URL.revokeObjectURL(link.href);
-            //         link.remove();
-            //     });
-            // });
+                    // Clean up the temporary anchor element
+                    URL.revokeObjectURL(link.href);
+                    link.remove();
+                });
+            });
 
             // html2canvas(document.getElementById('full_body'), {
             //     onrendered: function(canvas) {         
@@ -718,7 +718,7 @@ async function renderDiagnose(patient) {
             //     }
             // });
 
-            var doc = new jsPDF();
+            // var doc = new jsPDF();
 
             // Source HTMLElement or a string containing HTML.
             // var elementHTML = document.getElementById('full_body');
@@ -740,75 +740,75 @@ async function renderDiagnose(patient) {
            
 
             // Convert HTML to pdfMake document definition
-            function htmlToPdfMake(html) {
-                var docDefinition = {
-                    content: []
-                };
+            // function htmlToPdfMake(html) {
+            //     var docDefinition = {
+            //         content: []
+            //     };
 
-                // Create a temporary element to parse the HTML content
-                var tempElement = document.createElement("div");
-                tempElement.innerHTML = html;
+            //     // Create a temporary element to parse the HTML content
+            //     var tempElement = document.createElement("div");
+            //     tempElement.innerHTML = html;
 
-                // Process each child node of the temporary element
-                Array.from(tempElement.childNodes).forEach(function (node) {
-                    var elementDefinition = {};
+            //     // Process each child node of the temporary element
+            //     Array.from(tempElement.childNodes).forEach(function (node) {
+            //         var elementDefinition = {};
 
-                    // Handle different HTML node types
-                    switch (node.nodeType) {
-                        case Node.ELEMENT_NODE:
-                            elementDefinition = handleElementNode(node);
-                            break;
-                        case Node.TEXT_NODE:
-                            elementDefinition = handleTextNode(node);
-                            break;
-                        // Handle other node types as needed (e.g., comments, etc.)
-                    }
+            //         // Handle different HTML node types
+            //         switch (node.nodeType) {
+            //             case Node.ELEMENT_NODE:
+            //                 elementDefinition = handleElementNode(node);
+            //                 break;
+            //             case Node.TEXT_NODE:
+            //                 elementDefinition = handleTextNode(node);
+            //                 break;
+            //             // Handle other node types as needed (e.g., comments, etc.)
+            //         }
 
-                    // Add the element definition to the document content
-                    if (elementDefinition) {
-                        docDefinition.content.push(elementDefinition);
-                    }
-                });
+            //         // Add the element definition to the document content
+            //         if (elementDefinition) {
+            //             docDefinition.content.push(elementDefinition);
+            //         }
+            //     });
 
-                return docDefinition;
-            }
+            //     return docDefinition;
+            // }
 
-            // Helper function to handle HTML element nodes
-            function handleElementNode(element) {
-                var elementDefinition = {};
+            // // Helper function to handle HTML element nodes
+            // function handleElementNode(element) {
+            //     var elementDefinition = {};
 
-                // Map HTML tags to pdfMake styles and properties
-                switch (element.tagName.toLowerCase()) {
-                    case "h1":
-                        elementDefinition = {
-                            text: element.innerText,
-                            style: "header"
-                        };
-                        break;
-                    case "p":
-                        elementDefinition = {
-                            text: element.innerText,
-                            style: "paragraph"
-                        };
-                        break;
-                    // Handle other HTML tags as needed
-                }
+            //     // Map HTML tags to pdfMake styles and properties
+            //     switch (element.tagName.toLowerCase()) {
+            //         case "h1":
+            //             elementDefinition = {
+            //                 text: element.innerText,
+            //                 style: "header"
+            //             };
+            //             break;
+            //         case "p":
+            //             elementDefinition = {
+            //                 text: element.innerText,
+            //                 style: "paragraph"
+            //             };
+            //             break;
+            //         // Handle other HTML tags as needed
+            //     }
 
-                return elementDefinition;
-            }
+            //     return elementDefinition;
+            // }
 
-            // Helper function to handle HTML text nodes
-            function handleTextNode(textNode) {
-                return {
-                    text: textNode.textContent
-                };
-            }
+            // // Helper function to handle HTML text nodes
+            // function handleTextNode(textNode) {
+            //     return {
+            //         text: textNode.textContent
+            //     };
+            // }
 
-            // Convert HTML to pdfMake document definition
-            var docDefinition = htmlToPdfMake(htmlContent);
+            // // Convert HTML to pdfMake document definition
+            // var docDefinition = htmlToPdfMake(htmlContent);
 
-            // Generate the PDF
-            pdfMake.createPdf(docDefinition).download("converted.pdf");
+            // // Generate the PDF
+            // pdfMake.createPdf(docDefinition).download("converted.pdf");
 
 
 
