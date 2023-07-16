@@ -472,7 +472,7 @@ async function renderDiagnose(patient) {
                                 if (res.data.status) {
                                     toastr.success(`Ma'lumot o'zgartirildi`);
                                     main_page_header.innerHTML = `Diagnozlar`;
-                                    diagnose_button.click();
+                                    
                                 } else {
                                     toastr.error('Xatolik yuz berdi');
                                     main_page_header.innerHTML = `Diagnozlar`;
