@@ -646,8 +646,10 @@ async function renderDiagnose(patient) {
       <div class="med-bottom">
         <div class="med-bottom-top">
           <div class="med-doctor">
+            <br>
             <h2>Врач:</h2>
             <div class="med-doctor-data">
+              
               <p>Кодиров Ш.Ш.</p>
               <span>(97) 488-58-00</span>
             </div>
