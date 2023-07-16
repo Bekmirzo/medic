@@ -481,7 +481,7 @@ async function renderDiagnose(patient) {
                             }).catch((e) => {
                                 toastr.error('Xatolik yuz berdi');
                                 main_page_header.innerHTML = `Diagnozlar`;
-                                console.log(e.response.data);
+                                console.log(e);
                             });
 
 
