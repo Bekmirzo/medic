@@ -140,71 +140,646 @@ async function renderDiagnose(patient) {
     const card_body = document.getElementById('card_body');
     const card_footer = document.getElementById('card_footer');
 
+    /*
     card_body.innerHTML =
         `
     <table id="diagnose_datable" class="table table-sm table-bordered table-striped table-hover table-head-fixed text-center">
         <thead>
             <tr>
-              <th style="Width:100px">ID</th>
-              <th>Diagnoz</th>
-              <th>Sana</th>
-              <th style="Width:100px"></th>
+              <th></th>
+              <th></th>
+              <th></th>
             </tr>
         </thead>
         <tbody>
         </tbody>
     </table>
     `;
+    */
 
+    card_body.innerHTML =
+        `
+    <div id="diagnose_datable" class="row">
+        
+    </div>
+    <div id="pagination">
+        
+    </div>
+    `;
+
+    /*
     const tbody = main_page.getElementsByTagName('table')[0].children[1];
 
+    const chunkedArray = SliceToChunks(data, 3);
 
-    for (let i = 0; i < data.length; i++) {
-        const diagnoz = data[i];
-
-        const patient = await get_patient_by_id(diagnoz.patient)
-
-
-        const tr = document.createElement('tr');
+    for (let i = 0; i < chunkedArray.length; i++) {
+        const diagnoz = chunkedArray[i];
 
 
-        tr.innerHTML =
-            `
-            <td>${diagnoz.Id}</td>
-            <td>${diagnoz.diagnoz}</td>
-            <td>${diagnoz.date}</td>
-    
-            <td>
-                <button type="button" class="btn btn-info btn-sm dt_icons dt_view" p_id="${diagnoz.Id}">
-                    <i class="far fa-eye dt_icons dt_view" p_id="${diagnoz.Id}"></i>
-                </button>&nbsp;
-                <button type="button" class="btn btn-danger btn-sm dt_icons dt_delete" p_id="${diagnoz.Id}">
-                    <i class="fas fa-trash-alt dt_icons dt_delete" p_id="${diagnoz.Id}"></i>
-                </button>&nbsp;
-                <button type="button" class="btn btn-warning btn-sm dt_icons dt_edit" p_id="${diagnoz.Id}">
-                    <i class="fas fa-edit dt_icons dt_edit" p_id="${diagnoz.Id}"></i>
-                </button>
-            </td>
-            `;
-        tbody.appendChild(tr);
-    }
+        diagnoz.forEach(async element => {
+            const patient = await get_patient_by_id(element.patient);
+
+            if (i == 0) {
+                const tr = document.createElement('tr');
 
 
-    $(function () {
-        $("#diagnose_datable").DataTable(
-            {
-                "responsive": true,
-                "lengthChange": true,
-                "autoWidth": false,
-                "order": [[0, 'desc']],
-                "buttons": [
-                    {
-                        text: `<i  class="fas fa-plus"></i>  Qo'shish`,
-                        action: addDiagnose
-                    }]
+
+                tr.innerHTML =
+                    `
+                    <td>
+                        <div class="d-flex align-items-stretch flex-column">
+                            <div class="card bg-light d-flex flex-fill">
+                                <div class="card-body pt-0">
+                                    <img src="https://ssl.gstatic.com/docs/templates/thumbnails/sheets-blank-googlecolors.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="d-flex align-items-stretch flex-column">
+                            <div class="card bg-light d-flex flex-fill">
+                                <div class="card-header text-muted border-bottom-0">
+                                    Digital Strategist
+                                </div>
+                                <div class="card-body pt-0">
+                                    <div class="row">
+                                    <div class="col-7">
+                                        <h2 class="lead"><b>Nicole Pearson</b></h2>
+                                        <p class="text-muted text-sm"><b>About: </b> Web Designer / UX / Graphic Artist / Coffee Lover </p>
+                                        <ul class="ml-4 mb-0 fa-ul text-muted">
+                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address: Demo Street 123, Demo City 04312, NJ</li>
+                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: + 800 - 12 12 23 52</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-5 text-center">
+                                        <img src="../../dist/img/user1-128x128.jpg" alt="user-avatar" class="img-circle img-fluid">
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="text-right">
+                                    <a href="#" class="btn btn-sm bg-teal">
+                                        <i class="fas fa-comments"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-sm btn-primary">
+                                        <i class="fas fa-user"></i> View Profile
+                                    </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="d-flex align-items-stretch flex-column">
+                            <div class="card bg-light d-flex flex-fill">
+                                <div class="card-header text-muted border-bottom-0">
+                                    Digital Strategist
+                                </div>
+                                <div class="card-body pt-0">
+                                    <div class="row">
+                                    <div class="col-7">
+                                        <h2 class="lead"><b>Nicole Pearson</b></h2>
+                                        <p class="text-muted text-sm"><b>About: </b> Web Designer / UX / Graphic Artist / Coffee Lover </p>
+                                        <ul class="ml-4 mb-0 fa-ul text-muted">
+                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address: Demo Street 123, Demo City 04312, NJ</li>
+                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: + 800 - 12 12 23 52</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-5 text-center">
+                                        <img src="../../dist/img/user1-128x128.jpg" alt="user-avatar" class="img-circle img-fluid">
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="text-right">
+                                    <a href="#" class="btn btn-sm bg-teal">
+                                        <i class="fas fa-comments"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-sm btn-primary">
+                                        <i class="fas fa-user"></i> View Profile
+                                    </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    `;
+
+                tbody.appendChild(tr);
+            } else {
+                tr.innerHTML =
+                `
+                <td>
+                    <div class="d-flex align-items-stretch flex-column">
+                        <div class="card bg-light d-flex flex-fill">
+                            
+                            <div class="card-body pt-0">
+                                
+                                    <img src="https://ssl.gstatic.com/docs/templates/thumbnails/sheets-blank-googlecolors.png" alt="">
+                                
+                                
+                            </div>
+                            
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="d-flex align-items-stretch flex-column">
+                        <div class="card bg-light d-flex flex-fill">
+                            <div class="card-header text-muted border-bottom-0">
+                                Digital Strategist
+                            </div>
+                            <div class="card-body pt-0">
+                                <div class="row">
+                                <div class="col-7">
+                                    <h2 class="lead"><b>Nicole Pearson</b></h2>
+                                    <p class="text-muted text-sm"><b>About: </b> Web Designer / UX / Graphic Artist / Coffee Lover </p>
+                                    <ul class="ml-4 mb-0 fa-ul text-muted">
+                                    <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address: Demo Street 123, Demo City 04312, NJ</li>
+                                    <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: + 800 - 12 12 23 52</li>
+                                    </ul>
+                                </div>
+                                <div class="col-5 text-center">
+                                    <img src="../../dist/img/user1-128x128.jpg" alt="user-avatar" class="img-circle img-fluid">
+                                </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="text-right">
+                                <a href="#" class="btn btn-sm bg-teal">
+                                    <i class="fas fa-comments"></i>
+                                </a>
+                                <a href="#" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-user"></i> View Profile
+                                </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="d-flex align-items-stretch flex-column">
+                        <div class="card bg-light d-flex flex-fill">
+                            <div class="card-header text-muted border-bottom-0">
+                                Digital Strategist
+                            </div>
+                            <div class="card-body pt-0">
+                                <div class="row">
+                                <div class="col-7">
+                                    <h2 class="lead"><b>Nicole Pearson</b></h2>
+                                    <p class="text-muted text-sm"><b>About: </b> Web Designer / UX / Graphic Artist / Coffee Lover </p>
+                                    <ul class="ml-4 mb-0 fa-ul text-muted">
+                                    <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address: Demo Street 123, Demo City 04312, NJ</li>
+                                    <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: + 800 - 12 12 23 52</li>
+                                    </ul>
+                                </div>
+                                <div class="col-5 text-center">
+                                    <img src="../../dist/img/user1-128x128.jpg" alt="user-avatar" class="img-circle img-fluid">
+                                </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="text-right">
+                                <a href="#" class="btn btn-sm bg-teal">
+                                    <i class="fas fa-comments"></i>
+                                </a>
+                                <a href="#" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-user"></i> View Profile
+                                </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                `;
+
+            tbody.appendChild(tr);
             }
-        ).buttons().container().appendTo('#main_page .col-md-6:eq(0)');
+
+        });
+
+    };
+
+    */
+
+
+    $('#pagination').pagination({
+        dataSource: data,
+        callback: async function (data, pagination) {
+            let dataHtml =
+                `
+                <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column" style="">
+                    <img class="dt_icons d_add_btn" style="margin: 0 auto; cursor: pointer" src="https://ssl.gstatic.com/docs/templates/thumbnails/sheets-blank-googlecolors.png" alt="" height="150px" width="200px">  
+                </div>
+                `;
+
+            for (let i = 0; i < data.length; i++) {
+                const element = data[i];
+                
+                dataHtml +=
+                    `
+                <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
+                <div class="card bg-light d-flex flex-fill">
+                  <div class="card-header text-muted border-bottom-0">
+                    
+                  </div>
+                  <div class="card-body pt-0">
+                    <div class="row">
+                      <div class="col-12">
+                        <h2 class="lead"><b>Diagnoz: </b>${element.diagnoz}</h2>
+                        <p class="text-muted text-sm"><b>Sana:</b> ${element.date} </p>
+                        
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-footer">
+                    <div class="text-right">
+                        <a class="btn btn-primary btn-sm dt_icons dt_view" p_id="${element.Id}">
+                            <i class="fas fa-folder dt_icons dt_view" p_id="${element.Id}"></i> Chop etish
+                        </a>
+                        <a class="btn btn-info btn-sm dt_icons dt_edit" p_id="${element.Id}">
+                              <i class="fas fa-pencil-alt dt_icons dt_edit" p_id="${element.Id}">
+                              </i>
+                              O'zgartirish
+                        </a>
+                        <a class="btn btn-danger btn-sm dt_icons dt_delete"  p_id="${element.Id}">
+                            <i class="fas fa-trash dt_icons dt_delete" p_id="${element.Id}">
+                            </i>
+                            O'chirish
+                        </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+                `;
+            };
+
+            $("#diagnose_datable").html(dataHtml);
+        }
     });
+
+
+    card_body.onclick = async (e) => {
+        
+        if (e.target.classList.contains('dt_icons')) {
+            const p_id = e.target.getAttribute('p_id');
+            if (e.target.classList.contains('dt_edit')) {
+                showLoadingAlert();
+                const diagnose = await get_diagnos_by_id(p_id);
+
+                if (diagnose.Id_diagnoz) {
+
+                    const back_btn = document.getElementById('back_btn');
+
+                    back_btn.onclick = async (e) => {
+
+                        showLoadingAlert();
+                        const p_id = sessionStorage.getItem('p_id');
+                        const patient = await get_patient_by_id(p_id);
+                        main_page_header.innerHTML = `Bemorlar`;
+
+                        if (patient.Id) {
+                            renderDiagnose(patient)
+                        };
+                        //patients_button.click();
+                    };
+
+
+
+                    main_page_header.innerHTML = `Diagnozlar`;
+
+                    modal_container.innerHTML = "";
+
+
+                    card_body.innerHTML =
+                        `
+                    <div class="row">
+                        <div class="col-md-3">
+                            
+                            <div class="form-group">
+                                <label for="d_diagnose_name">Diagnoz</label>
+                                <input type="text" class="form-control" id="d_diagnose_name" placeholder="Diagnoz">
+                            </div>
+                            <div class="form-group">
+                                <label for="d_date">Sana</label>
+                                <input type="date" class="form-control" id="d_date">
+                            </div>
+                            <div class="form-group">
+                                <label for="d_comment">Komment</label>
+                                <textarea id="d_comment" class="form-control" rows="10" placeholder="Enter ..."></textarea>
+                            </div>  
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="d_diagnose_info">Tavfsiya</label>
+                                <textarea id="d_diagnose_info" class="form-control" rows="22" placeholder="Enter ..."></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group" id="recipe_table_container">
+                                <label for="d_reciepe_name">Retsept</label>
+                                <textarea id="d_diagnose_info" class="form-control" rows="11" placeholder="Enter ..."></textarea>
+                            </div>
+                        </div>
+                    </div>               
+                    `;
+
+
+                    card_footer.innerHTML =
+                        `
+                    <button id="save_btn" type="button" class="btn btn-success float-right">
+                        <i class="fas fa-save"></i> Saqlash
+                    </button>
+                    `;
+
+
+
+
+                    const recipes = await get_recipe_all();
+
+                    const recipe_table_container = document.getElementById('recipe_table_container');
+
+                    recipe_table_container.innerHTML = "";
+                    recipe_table_container.innerHTML = `
+                    <label for="d_reciepe_name">Retsept</label>
+                    <table id="recipes_name_datatable" class="table table-sm table-bordered table-striped table-hover table-head-fixed text-center">
+                        <thead>
+                            <tr>
+                            
+                            <th>Retsept</th>
+                            <th style="Width:100px"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    `;
+
+                    const tbody = recipe_table_container.getElementsByTagName('table')[0].children[1];
+
+                    recipes.forEach(recipe => {
+                        const tr = document.createElement('tr');
+
+                        //tr.setAttribute("style", "height:5px")
+
+                        tr.innerHTML =
+                            `
+                        
+                        <td>${recipe.name}</td>
+                        
+                     
+                        <td>
+                            <button type="button" class="btn btn-info btn-sm dt_icons dt_add" r_id="${recipe.Id}">
+                                <i class="fas fa-plus-circle dt_icons dt_add" r_id="${recipe.Id}"></i>
+                            </button>
+                        </td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+
+
+                    const d_diagnose_name = document.getElementById('d_diagnose_name');
+                    const d_date = document.getElementById('d_date');
+                    const d_diagnose_info = document.getElementById('d_diagnose_info');
+                    const d_comment = document.getElementById('d_comment');
+
+
+                    d_diagnose_name.value = diagnose.diagnoz;
+                    d_date.value = diagnose.date;
+                    d_diagnose_info.value = diagnose.recommendation;
+                    d_comment.value = diagnose.comment;
+
+                    tbody.onclick = async (e) => {
+                        if (e.target.classList.contains('dt_add')) {
+                            const r_id = e.target.getAttribute('r_id');
+                            const reciepe = await get_reciepe_by_id(r_id);
+
+                            if (reciepe.Id) {
+                                let txt = d_diagnose_info.value;
+
+                                if (txt == ``) {
+                                    txt += `${reciepe.name} - ${reciepe.info}`;
+                                } else {
+                                    txt += `\n${reciepe.name} - ${reciepe.info}`;
+                                }
+
+                                d_diagnose_info.value = txt;
+                            };
+
+                        };
+                    };
+
+                    const save_btn = document.getElementById('save_btn');
+
+                    save_btn.onclick = () => {
+
+                        const update_data = {
+                            "method": "diagnoz_change",
+                            "params": {
+                                "id": diagnose.Id_diagnoz,
+
+                                "diagnoz": d_diagnose_name.value,
+                                "recommendation": d_diagnose_info.value,
+                                "comment": d_comment.value,
+                                "date": d_date.value
+                            }
+                        };
+
+                        const checkdata = {
+
+                            "Diagnoz": d_diagnose_name.value,
+                            "Sana": d_date.value,
+                            "Tavfsiya": d_diagnose_info.value,
+                            "Kommentariya": d_comment.value
+                        };
+
+
+
+
+                        try {
+
+                            for (const key in checkdata) {
+                                if (checkdata.hasOwnProperty(key)) {
+                                    if (checkdata[key] == '' || checkdata[key] == null || checkdata[key] == undefined) {
+                                        toastr.warning(`<b>${key}</b> kiritilishi zarur!`);
+                                        throw new Error();
+                                        break;
+                                    };
+                                };
+                            };
+
+                            $('#edit_diagnose_modal').modal('hide');
+                            showLoadingAlert();
+                            axios({
+                                method: 'post',
+                                url: `${HOST}/dashboard/v1/`,
+                                data: update_data
+                            }).then((res) => {
+
+                                if (res.data.status) {
+                                    toastr.success(`Ma'lumot o'zgartirildi`);
+                                    main_page_header.innerHTML = `Diagnozlar`;
+
+                                } else {
+                                    toastr.error('Xatolik yuz berdi');
+                                    main_page_header.innerHTML = `Diagnozlar`;
+                                    console.log(res);
+                                }
+                            }).catch((e) => {
+                                toastr.error('Xatolik yuz berdi');
+                                main_page_header.innerHTML = `Diagnozlar`;
+                                console.log(e);
+                            });
+
+
+                        } catch (error) {
+
+                        };
+                    };
+
+                }
+
+                $(function () {
+                    $("#recipes_name_datatable").DataTable(
+                        {
+                            "responsive": true,
+                            "lengthChange": true,
+                            "autoWidth": false,
+                            "order": [[0, 'desc']],
+                            "scrollX": true,
+                            "scrollY": "300px",
+                            "info": false,
+
+                            "language": {
+                                "search": "_INPUT_",            // Removes the 'Search' field label
+                                "searchPlaceholder": "Search"   // Placeholder for the search box
+                            },
+                            "search": {
+                                "addClass": 'form-control'
+                            },
+                            "fnDrawCallback": function () {
+                                $("input[type='search']").attr("id", "searchBox");
+                                $('#dialPlanListTable').css('cssText', "margin-top: 0px !important;");
+                                $("select[name='dialPlanListTable_length'], #searchBox").removeClass("input-sm");
+                                $('#searchBox').css("width", "100px").focus();
+                                $('#dialPlanListTable_filter').removeClass('dataTables_filter');
+                            }
+
+                        }
+                    );
+                });
+            } else if (e.target.classList.contains('dt_delete')) {
+
+
+                const diagnose = await get_diagnos_by_id(p_id);
+                const patient = await get_patient_by_id(diagnose.patient);
+
+                main_page_header.innerHTML = `Diagnozlar`;
+                if (diagnose.Id_diagnoz && patient.Id) {
+
+
+
+
+                    let text = `------------------------------------------------------------------\n`;
+                    text += `                                Diagnoz o'chirilsinmi ?\n`;
+                    text += `------------------------------------------------------------------`;
+
+                    text += `\n  Id: ${diagnose.Id_diagnoz}`;
+                    text += `\n  Sana: ${diagnose.date}`;
+                    text += `\n  Diagnose: ${diagnose.diagnoz}`;
+                    text += `\n  Bemor: ${patient.father_name} ${patient.first_name} ${patient.name}`;
+                    text += `\n------------------------------------------------------------------`;
+
+
+                    if (confirm(text)) {
+                        showLoadingAlert();
+                        axios({
+                            method: 'post',
+                            url: `${HOST}/dashboard/v1/`,
+                            data: {
+                                "method": "diagnoz_delete",
+                                "params": {
+                                    "id": parseInt(diagnose.Id_diagnoz)
+                                }
+                            }
+                        }).then(async (res) => {
+                            if (res.data.status) {
+                                toastr.success(`Dziagnoz O'chirildi`);
+                                main_page_header.innerHTML = `Diagnozlar`;
+                                showLoadingAlert();
+                                const p_id = sessionStorage.getItem('p_id');
+                                const patient = await get_patient_by_id(p_id);
+                                main_page_header.innerHTML = `Bemorlar`;
+
+                                if (patient.Id) {
+                                    renderDiagnose(patient)
+                                };
+
+
+                            } else {
+                                toastr.error('Xatolik yuz berdi');
+                                main_page_header.innerHTML = `Diagnozlar`;
+                                console.log(res);
+                            }
+                        }).catch((e) => {
+                            toastr.error('Xatolik yuz berdi');
+                            main_page_header.innerHTML = `Diagnozlar`;
+                            console.log(e);
+                        });
+                    }
+                }
+            } else if (e.target.classList.contains('dt_view')) {
+                const back_btn = document.getElementById('back_btn');
+
+                back_btn.onclick = async (e) => {
+
+                    showLoadingAlert();
+                    const p_id = sessionStorage.getItem('p_id');
+                    const patient = await get_patient_by_id(p_id);
+                    main_page_header.innerHTML = `Bemorlar`;
+
+                    if (patient.Id) {
+                        renderDiagnose(patient)
+                    };
+                    //patients_button.click();
+                };
+
+                const diagnose = await get_diagnos_by_id(p_id);
+                const patient = await get_patient_by_id(diagnose.patient);
+
+                main_page_header.innerHTML = `Diagnozlar`;
+                if (diagnose.Id_diagnoz && patient.Id) {
+                    diagnose_preview(diagnose, patient)
+                }
+            } else if (e.target.classList.contains('d_add_btn')) {
+                
+
+                addDiagnose();
+            };
+        }
+    };
+
+
+
+
+    /*
+        $(function () {
+            $("#diagnose_datable").DataTable(
+                {
+                    "responsive": true,
+                    "lengthChange": true,
+                    "autoWidth": false,
+                    "ordering": false,
+                    "buttons": [
+                        {
+                            text: `<i  class="fas fa-plus"></i>  Qo'shish`,
+                            action: addDiagnose
+                        }]
+                }
+            ).buttons().container().appendTo('#main_page .col-md-6:eq(0)');
+        });
+    
+        */
 
     async function get_diagnos_by_id(id) {
         return axios({
@@ -271,6 +846,8 @@ async function renderDiagnose(patient) {
             return e;
         })
     }
+
+    /*
 
     tbody.onclick = async (e) => {
 
@@ -472,7 +1049,7 @@ async function renderDiagnose(patient) {
                                 if (res.data.status) {
                                     toastr.success(`Ma'lumot o'zgartirildi`);
                                     main_page_header.innerHTML = `Diagnozlar`;
-                                    
+
                                 } else {
                                     toastr.error('Xatolik yuz berdi');
                                     main_page_header.innerHTML = `Diagnozlar`;
@@ -595,6 +1172,8 @@ async function renderDiagnose(patient) {
         }
     };
 
+    */
+
 
     function diagnose_preview(diagnose, patient) {
 
@@ -605,69 +1184,67 @@ async function renderDiagnose(patient) {
         card_body.innerHTML =
             `
         <div class="med-paper" id="full_body">
-      <div class="med-paper-main">
-        <div class="med-paper-top">
-          <img src="./logo.png" alt="logo" />
-        </div>
-        <div class="address-title">
-          <p>
-            г.Бухара, ул. Каюм Муртазоев 2/1. Ориентир: Доз-5 (Рубин-Шамс) Тел:
-            +998-(95) 420-01-03; наш канал в телеграмме:
-            <span>t.me/LORvrachBukhara</span>
-          </p>
-        </div>
-        <h3 class="consolt-title">Оториноларинголог консультацияси</h3>
-        <div class="med-data">
-          <div class="person-info">
-            <h2>
-              Беморнинг Ф.И.Ш: <span>${patient.father_name} ${patient.first_name} ${patient.name}</span>
-            </h2>
-          </div>
-          <div class="person-info">
-            <h2>Ёши: <span>${patient.age}</span></h2>
-          </div>
-          <div class="person-info">
-            <h2>
-              Диагноз:
-              <span>${diagnose.diagnoz}</span>
-            </h2>
-            <!-- <p>2х сторонний ХГСО (мезотимпанит) rgthyjfhdfgdfh jklnbtkjbn rejkb ver vkjer rkjl jfthdrgt</p> -->
-          </div>
-        </div>
-        <div class="med-advice">
-          <h2>Тавсия:</h2>
-          <div id="r_container">
-          
-          </div>
-          
-        </div>
-      </div>
-      <hr>
-      <div class="med-bottom">
-        <div class="med-bottom-top">
-          <div class="med-doctor">
-            <div></div>
-            <h2>Врач:</h2>
-            <div class="med-doctor-data">
-              <p>Кодиров Ш.Ш.</p>
-              <span>(97) 488-58-00</span>
+            <div class="med-paper-main">
+                <div class="med-paper-top">
+                <img src="./logo.png" alt="logo" />
+                </div>
+                <div class="address-title">
+                <p>
+                    г.Бухара, ул. Каюм Муртазоев 2/1. Ориентир: Доз-5 (Рубин-Шамс) Тел:
+                    +998-(95) 420-01-03; наш канал в телеграмме:
+                    <span>t.me/LORvrachBukhara</span>
+                </p>
+                </div>
+                <h3 class="consolt-title">Оториноларинголог консультацияси</h3>
+                <div class="med-data">
+                <div class="person-info">
+                    <h2>
+                    Беморнинг Ф.И.Ш: <span>${patient.father_name} ${patient.first_name} ${patient.name}</span>
+                    </h2>
+                </div>
+                <div class="person-info">
+                    <h2>Ёши: <span>${patient.age}</span></h2>
+                </div>
+                <div class="person-info">
+                    <h2>
+                    Диагноз:
+                    <span>${diagnose.diagnoz}</span>
+                    </h2>
+                    <!-- <p>2х сторонний ХГСО (мезотимпанит) rgthyjfhdfgdfh jklnbtkjbn rejkb ver vkjer rkjl jfthdrgt</p> -->
+                </div>
+                </div>
+                <div class="med-advice">
+                <h2>Тавсия:</h2>
+                <div id="r_container">
+                
+                </div>
+                
+                </div>
             </div>
-          </div>
-          <div class="med-doctor">
-            <h2>Дата осмотра:</h2>
-            <p>${diagnose.date}</p>
-          </div>
+            <hr>
+            <div class="med-bottom">
+                <div class="med-bottom-top">
+                <div class="med-doctor">
+                    <h2>Врач:</h2>
+                    <div class="med-doctor-data">
+                    <p>Кодиров Ш.Ш.</p>
+                    <span>(97) 488-58-00</span>
+                    </div>
+                </div>
+                <div class="med-doctor">
+                    <h2>Дата осмотра:</h2>
+                    <p>${diagnose.date}</p>
+                </div>
+                </div>
+                <div class="med-doctor-rec">
+                <p>
+                    Тополмаган дориларизни <span>@arzonaptekabot</span> ботидан
+                    топишингиз мумкин.
+                </p>
+                <h4>ТЕЗРОК ТУЗАЛИБ КЕТИШИНГИЗНИ ТИЛАБ КОЛАМИЗ!</h4>
+                </div>
+            </div>
         </div>
-        <div class="med-doctor-rec">
-          <p>
-            Тополмаган дориларизни <span>@arzonaptekabot</span> ботидан
-            топишингиз мумкин.
-          </p>
-          <h4>ТЕЗРОК ТУЗАЛИБ КЕТИШИНГИЗНИ ТИЛАБ КОЛАМИЗ!</h4>
-        </div>
-      </div>
-      
-    </div>
         `;
 
         const r_container = document.getElementById('r_container');
@@ -692,22 +1269,22 @@ async function renderDiagnose(patient) {
 
         save_btn.onclick = () => {
             window.jsPDF = window.jspdf.jsPDF;
-            html2canvas(document.getElementById('full_body')).then(function (canvas) {
-                // Convert the canvas to a blob
-                canvas.toBlob(function (blob) {
-                    // Create a temporary anchor element
-                    const link = document.createElement('a');
-                    link.href = URL.createObjectURL(blob);
-                    link.download = `${patient.father_name} ${patient.first_name} ${patient.name}`;
+            // html2canvas(document.getElementById('full_body')).then(function (canvas) {
+            //     // Convert the canvas to a blob
+            //     canvas.toBlob(function (blob) {
+            //         // Create a temporary anchor element
+            //         const link = document.createElement('a');
+            //         link.href = URL.createObjectURL(blob);
+            //         link.download = 'Nodir aka.png';
 
-                    // Programmatically click the anchor element to trigger the download
-                    link.click();
+            //         // Programmatically click the anchor element to trigger the download
+            //         link.click();
 
-                    // Clean up the temporary anchor element
-                    URL.revokeObjectURL(link.href);
-                    link.remove();
-                });
-            });
+            //         // Clean up the temporary anchor element
+            //         URL.revokeObjectURL(link.href);
+            //         link.remove();
+            //     });
+            // });
 
             // html2canvas(document.getElementById('full_body'), {
             //     onrendered: function(canvas) {         
@@ -719,7 +1296,7 @@ async function renderDiagnose(patient) {
             //     }
             // });
 
-            // var doc = new jsPDF();
+
 
             // Source HTMLElement or a string containing HTML.
             // var elementHTML = document.getElementById('full_body');
@@ -734,84 +1311,26 @@ async function renderDiagnose(patient) {
             // html2pdf(elementHTML);
 
 
-            //var htmlContent = document.getElementById('full_body');
+            var htmlContent = document.getElementById('full_body');
 
+            console.log(htmlContent)
 
+            // var val = htmlToPdfmake();
+            // var dd = { content: val };
+            // pdfMake.createPdf(dd).download();
 
-           
+            const doc = new jsPDF();
 
-            // Convert HTML to pdfMake document definition
-            // function htmlToPdfMake(html) {
-            //     var docDefinition = {
-            //         content: []
-            //     };
+            const element = document.getElementById('full_body');
+            const opt = {
 
-            //     // Create a temporary element to parse the HTML content
-            //     var tempElement = document.createElement("div");
-            //     tempElement.innerHTML = html;
+                filename: 'example.pdf',
+                image: { type: 'jpeg', quality: 1 },
 
-            //     // Process each child node of the temporary element
-            //     Array.from(tempElement.childNodes).forEach(function (node) {
-            //         var elementDefinition = {};
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
 
-            //         // Handle different HTML node types
-            //         switch (node.nodeType) {
-            //             case Node.ELEMENT_NODE:
-            //                 elementDefinition = handleElementNode(node);
-            //                 break;
-            //             case Node.TEXT_NODE:
-            //                 elementDefinition = handleTextNode(node);
-            //                 break;
-            //             // Handle other node types as needed (e.g., comments, etc.)
-            //         }
-
-            //         // Add the element definition to the document content
-            //         if (elementDefinition) {
-            //             docDefinition.content.push(elementDefinition);
-            //         }
-            //     });
-
-            //     return docDefinition;
-            // }
-
-            // // Helper function to handle HTML element nodes
-            // function handleElementNode(element) {
-            //     var elementDefinition = {};
-
-            //     // Map HTML tags to pdfMake styles and properties
-            //     switch (element.tagName.toLowerCase()) {
-            //         case "h1":
-            //             elementDefinition = {
-            //                 text: element.innerText,
-            //                 style: "header"
-            //             };
-            //             break;
-            //         case "p":
-            //             elementDefinition = {
-            //                 text: element.innerText,
-            //                 style: "paragraph"
-            //             };
-            //             break;
-            //         // Handle other HTML tags as needed
-            //     }
-
-            //     return elementDefinition;
-            // }
-
-            // // Helper function to handle HTML text nodes
-            // function handleTextNode(textNode) {
-            //     return {
-            //         text: textNode.textContent
-            //     };
-            // }
-
-            // // Convert HTML to pdfMake document definition
-            // var docDefinition = htmlToPdfMake(htmlContent);
-
-            // // Generate the PDF
-            // pdfMake.createPdf(docDefinition).download("converted.pdf");
-
-
+            html2pdf().set(opt).from(element).save();
 
         };
 
@@ -1119,7 +1638,6 @@ function renderPatiens(data) {
 
     sessionStorage.setItem('steep', `pations`);
 
-
     main_page_header.innerHTML = `Bemorlar`;
     title.innerHTML = `Bemorlar`;
 
@@ -1182,14 +1700,14 @@ function renderPatiens(data) {
         
         <td>${phone}</td>
         <td>
-            <button type="button" class="btn btn-danger btn-sm dt_icons dt_delete" p_id="${patient.Id}">
-                <i class="fas fa-trash-alt dt_icons dt_delete" p_id="${patient.Id}"></i>
+            <button title="O'chirish" type="button" class="btn btn-danger btn-sm dt_icons dt_delete" p_id="${patient.Id}">
+                <i class="fas fa-trash-alt dt_icons dt_delete" p_id="${patient.Id}"></i> O'chirish
             </button>&nbsp;
-            <button type="button" class="btn btn-warning btn-sm dt_icons dt_edit" p_id="${patient.Id}">
-                <i class="fas fa-edit dt_icons dt_edit" p_id="${patient.Id}"></i>
+            <button title="O'zgartirish" type="button" class="btn btn-warning btn-sm dt_icons dt_edit" p_id="${patient.Id}">
+                <i class="fas fa-edit dt_icons dt_edit" p_id="${patient.Id}"></i> O'zgartirish
             </button>&nbsp;
-            <button type="button" class="btn btn-success btn-sm dt_icons dt_diagnose" p_id="${patient.Id}">
-                <i class="fas fa-notes-medical dt_icons dt_diagnose" p_id="${patient.Id}"></i>
+            <button title="Diagnozlar" type="button" class="btn btn-success btn-sm dt_icons dt_diagnose" p_id="${patient.Id}">
+                <i class="fas fa-notes-medical dt_icons dt_diagnose" p_id="${patient.Id}"></i> Diagnozlar
             </button>
         </td>
         `;
@@ -1412,6 +1930,7 @@ function renderPatiens(data) {
                                 }
                             }
                         }).then((res) => {
+                            console.log(res)
                             if (res.data.status) {
                                 toastr.success(`Bemor O'chirildi`);
                                 main_page_header.innerHTML = `Bemorlar`;
